@@ -13,6 +13,7 @@ import { createPinia } from 'pinia';
 import { createApp } from 'vue';
 import { defineComponent } from 'vue';
 import VueApexCharts from 'vue3-apexcharts';
+import { handleLogin } from '@/ldAuthService';
 // Plugins
 import { registerVuetify } from '@/plugins';
 import App from './App.vue';
@@ -104,6 +105,9 @@ async function initialize(): Promise<void> {
     // Create the router
     const router = await createAppRouter();
     app.use(router);
+
+    // Ld Sso login
+    await handleLogin();
 
     // Mount the app
     app.mount('#app');

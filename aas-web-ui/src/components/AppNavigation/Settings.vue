@@ -13,6 +13,7 @@
                 <v-divider v-if="endpointConfigAvailable" class="mt-3"></v-divider>
                 <!-- Backend Configuration -->
                 <BackendConfig v-if="endpointConfigAvailable"></BackendConfig>
+                <LdLogout></LdLogout>
             </v-list>
         </v-card>
     </v-menu>
@@ -20,6 +21,7 @@
 
 <script lang="ts" setup>
     import { computed, ref } from 'vue';
+    import LdLogout from '@/components/AppNavigation/Settings/LdLogout.vue';
     import { useEnvStore } from '@/store/EnvironmentStore';
     import { useNavigationStore } from '@/store/NavigationStore';
 
