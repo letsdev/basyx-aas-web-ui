@@ -1,4 +1,4 @@
-import { UserManager } from 'oidc-client-ts';
+import { User, UserManager } from 'oidc-client-ts';
 import { OIDC_CONFIG } from '@/constants/oidc-config';
 import { useAuthStore } from '@/store/AuthStore';
 

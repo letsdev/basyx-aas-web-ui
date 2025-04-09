@@ -1,17 +1,24 @@
 # Build Stage
-FROM node:lts-slim AS build-stage
+FROM node:20 AS build-stage
 ARG HTTP_PROXY
 ARG HTTPS_PROXY
 # Set working directory
 WORKDIR /app
-# Copy the package.json and yarn.lock files
-COPY package.json yarn.lock ./
+# Copy the package.json
+COPY package.json  ./
+ENV VITE_OIDC_CONFIG_CLIENT_ID=aas_twinmap_daimler
+ENV VITE_OIDC_CONFIG_CLIENT_SECRET=aas_twinmap_daimler
+ENV VITE_OIDC_CONFIG_SCOPE='email profile phone openid address api:read api:write'
+ENV VITE_OIDC_CONFIG_REDIRECT_URI=https://aas.daimler.twinmap.de/
+ENV VITE_OIDC_CONFIG_AUTHORITY=https://sso.twinmap.de/
+ENV VITE_OIDC_CONFIG_CLIENT_AUTHENTICATION=client_secret_basic
+ENV VITE_OIDC_CONFIG_RESPONSE_TYPE=code
 # Install dependencies
-RUN yarn install
+RUN npm --force install --verbose
 # Copy project files
 COPY . .
-# Build the application and remove node_modules
-RUN yarn build && rm -rf node_modules
+# Build the application
+RUN npm run build
 
 # Production Stage
 FROM nginx:mainline-alpine-slim AS production-stage
