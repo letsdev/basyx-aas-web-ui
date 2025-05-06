@@ -68,6 +68,9 @@ async function initialize(): Promise<void> {
         }
     }
 
+    // Ld Sso login
+    await handleLogin();
+
     // Vuetify
     registerVuetify(app);
 
@@ -105,9 +108,6 @@ async function initialize(): Promise<void> {
     // Create the router
     const router = await createAppRouter();
     app.use(router);
-
-    // Ld Sso login
-    await handleLogin();
 
     // Mount the app
     app.mount('#app');
