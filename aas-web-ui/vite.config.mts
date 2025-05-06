@@ -12,6 +12,10 @@ export default defineConfig(({ mode }) => {
     const isProduction = mode === 'production';
     const base = isProduction ? process.env.BASE || '/__BASE_PATH_PLACEHOLDER__/' : '/';
     return {
+        build: {
+            minify: isProduction,
+            sourcemap: isProduction,
+        },
         plugins: [
             AutoImport({
                 imports: ['vue'],
