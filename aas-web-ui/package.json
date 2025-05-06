@@ -7,7 +7,8 @@
   "scripts": {
     "dev": "vite",
     "prebuild": "cross-env NODE_ENV=production yarn lint:check && vitest run && vue-tsc --noEmit",
-    "build": "vite build",
+    "build": "NODE_ENV=develop vite build --mode development",
+    "build:prod": "vite build",
     "preview": "vite preview",
     "lint:check": "eslint ./",
     "lint:fix": "eslint --fix ./",
