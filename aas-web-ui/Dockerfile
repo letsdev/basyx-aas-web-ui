@@ -6,19 +6,33 @@ ARG HTTPS_PROXY
 WORKDIR /app
 # Copy the package.json
 COPY package.json  ./
-ENV VITE_OIDC_CONFIG_CLIENT_ID=aas_twinmap_daimler
-ENV VITE_OIDC_CONFIG_CLIENT_SECRET=aas_twinmap_daimler
-ENV VITE_OIDC_CONFIG_SCOPE='email profile phone openid address api:read api:write'
-ENV VITE_OIDC_CONFIG_REDIRECT_URI=https://aas.daimler.twinmap.de/
+#ENV VITE_OIDC_CONFIG_CLIENT_ID=aas_twinmap_daimler
+#ENV VITE_OIDC_CONFIG_CLIENT_SECRET=aas_twinmap_daimler
+#ENV VITE_OIDC_CONFIG_REDIRECT_URI=https://aas.daimler.twinmap.de/
+#ENV VITE_OIDC_CONFIG_CLIENT_ID=aas_twinmap_trumpf
+#ENV VITE_OIDC_CONFIG_CLIENT_SECRET=aas_twinmap_trumpf
+#ENV VITE_OIDC_CONFIG_REDIRECT_URI=https://aas.trumpf.twinmap.de/
+ENV VITE_OIDC_CONFIG_CLIENT_ID=aas_twinmap
+ENV VITE_OIDC_CONFIG_CLIENT_SECRET=
+ENV VITE_OIDC_CONFIG_REDIRECT_URI=https://aas.twinmap.de/
+
+ENV VITE_AAS_DISCOVERY_PATH=https://discovery.aas.twinmap.de/
+ENV VITE_AAS_REGISTRY_PATH=https://registry.aas.twinmap.de/
+ENV VITE_SUBMODEL_REGISTRY_PATH=https://smregistry.aas.twinmap.de/
+ENV VITE_DASHBOARD_SERVICE_PATH=https://dashboard.aas.twinmap.de/api/elements
+
 ENV VITE_OIDC_CONFIG_AUTHORITY=https://sso.twinmap.de/
 ENV VITE_OIDC_CONFIG_CLIENT_AUTHENTICATION=client_secret_basic
 ENV VITE_OIDC_CONFIG_RESPONSE_TYPE=code
+ENV VITE_OIDC_CONFIG_OPENID_CONFIGURATION_ENDPOINT=https://sso.twinmap.de/.well-known/openid-configuration
+ENV VITE_OIDC_CONFIG_SCOPE="api:read api:write openid email"
+
 # Install dependencies
 RUN npm --force install --verbose
 # Copy project files
 COPY . .
 # Build the application
-RUN npm run build
+RUN npm run build:prod
 
 # Production Stage
 FROM nginx:mainline-alpine-slim AS production-stage
