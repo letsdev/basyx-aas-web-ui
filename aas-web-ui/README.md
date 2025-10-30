@@ -1,3 +1,14 @@
+```shell 
+IMAGE=aas-oidc:1.2.9
+docker builder prune -af
+docker build --platform linux/amd64 --no-cache -t docker-twinmap.letsdev.de/${IMAGE} .
+docker tag docker-twinmap.letsdev.de/${IMAGE} docker-twinmap.letsdev.de/${IMAGE}
+docker push docker-twinmap.letsdev.de/${IMAGE}
+```
+
+
+
+
 # default
 
 ## Project setup
